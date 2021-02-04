@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "JackHenry.Demo.Programs.TwitterMonitorConsole": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

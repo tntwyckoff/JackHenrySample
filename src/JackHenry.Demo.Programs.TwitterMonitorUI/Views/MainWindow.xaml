@@ -1,0 +1,148 @@
+﻿<Window mc:Ignorable="d"
+        x:Class="JackHenry.Demo.Programs.TwitterMonitorUI.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JackHenry.Demo.Programs.TwitterMonitorUI"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        Title="{Binding Title}"
+        Height="800" Width="1100">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="boolToVisConverter" />
+    </Window.Resources>
+    <Grid Margin="30">
+        <Grid Visibility="{Binding Loading, Converter={StaticResource boolToVisConverter}}">
+            <TextBox Text="Loading" />
+        </Grid>
+        <Grid Visibility="{Binding Ready, Converter={StaticResource boolToVisConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition Height="28" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.ColumnSpan="4"
+                       HorizontalAlignment="Center"
+                       FontSize="20">Twitter Stat Monitor</TextBlock>
+
+            <Label Grid.Row="1">Tweets found:</Label>
+            <TextBlock Grid.Row="1" 
+                       Grid.Column="1"
+                       HorizontalAlignment="Right"
+                       Text="{Binding TotalTweets, StringFormat={}{0:#,0}}" />
+
+
+            <Label Grid.Row="2">Time elapsed:</Label>
+            <TextBlock Grid.Row="2" 
+                       Grid.Column="1"
+                       HorizontalAlignment="Right"
+                       Text="{Binding ElapsedTimeText}" />
+
+            <Label Grid.Row="3" Margin="30 0">Tweets/second:</Label>
+            <TextBlock Grid.Row="3" 
+                       Grid.Column="1"
+                       HorizontalAlignment="Right"
+                       Text="{Binding TweetsPerSecond, StringFormat={}{0:#,0.0}}" />
+
+            <Label Grid.Row="4" Margin="30 0">Tweets/minute:</Label>
+            <TextBlock Grid.Row="4" 
+                       Grid.Column="1"
+                       HorizontalAlignment="Right"
+                       Text="{Binding TweetsPerMinute, StringFormat={}{0:#,0.0}}" />
+
+            <Label Grid.Row="5" Margin="30 0">Tweets/hour:</Label>
+            <TextBlock Grid.Row="5" 
+                       Grid.Column="1"
+                       HorizontalAlignment="Right"
+                       Text="{Binding TweetsPerHour, StringFormat={}{0:#,0.0}}" />
+
+            <Label Grid.Row="6">Tweets w/URLs / Percentage of all:</Label>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="6" 
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        
+                        HorizontalAlignment="Right">
+                <TextBlock 
+                       HorizontalAlignment="Right"
+                       Text="{Binding TweetsWithUrls, StringFormat={}{0:#,0}}" />
+
+                <TextBlock 
+                       HorizontalAlignment="Right"
+                       Text=" / " />
+
+                <TextBlock 
+                       HorizontalAlignment="Right"
+                       Text="{Binding PctWithUrls, StringFormat=P0}" />
+            </StackPanel>
+
+            <Label Grid.Row="7">Tweets w/Photo URLs / Percentage of all:</Label>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="7" 
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right">
+                <TextBlock 
+                       HorizontalAlignment="Right"
+                       Text="{Binding TweetsWithPhotoUrls, StringFormat={}{0:#,0}}" />
+
+                <TextBlock 
+                       HorizontalAlignment="Right"
+                       Text=" / " />
+
+                <TextBlock 
+                       HorizontalAlignment="Right"
+                       Text="{Binding PctWithPhotoUrls, StringFormat=P0}" />
+            </StackPanel>
+
+            <Label Grid.Row="8" Grid.Column="1">Top linked domains:</Label>
+            <Label Grid.Row="8" Grid.Column="2">Top hashtags:</Label>
+
+            <ListView Grid.Row="9" Grid.Column="1" ItemsSource="{Binding TopDomains}" BorderThickness="0">
+                <ListView.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <Grid Width="2.21in">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Item1}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Item2, StringFormat={}{0:#,0}}"  HorizontalAlignment="Right" />
+                        </Grid>
+                    </ItemContainerTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+            <ListView Grid.Row="9" Grid.Column="2" ItemsSource="{Binding TopHashtags}" BorderThickness="0">
+                <ListView.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <Grid Width="2.21in">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Item1}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Item2, StringFormat={}{0:#,0}}"  HorizontalAlignment="Right" />
+                        </Grid>
+                    </ItemContainerTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>

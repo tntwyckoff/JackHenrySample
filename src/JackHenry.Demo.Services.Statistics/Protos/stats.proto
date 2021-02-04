@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "JackHenry.Demo.Services.Statistics";
+
+package stats;
+
+service StatSummary 
+{
+  rpc PostStatSummary (TwitterStatSummary) returns (PostResponse);
+  rpc GetLatestStats (NullMessage) returns (TwitterStatSummary);
+}
+
+message TwitterStatSummary 
+{
+   int64 FirstTweetTime = 1;
+   int64 LastTweetTime = 2;
+   int32 NumberOfTweets = 3;
+   int32 NumberEmojiTweets = 4;
+   int32 NumberOfUrlTweets = 5;
+   int32 NumberOfPhotoUrlTweets = 6;   
+   map<string, int32> HashtagCount = 7;
+   map<string, int32> DomainCount = 8;
+   // map<string, int32> EmojiCount = 9;
+}
+
+message PostResponse 
+{
+  bool success = 1;
+}
+
+message NullMessage
+{
+}
